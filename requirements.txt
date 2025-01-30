@@ -1,0 +1,6 @@
+Flask
+Dash
+plotly
+pandas
+setuptools
+pyarrow
