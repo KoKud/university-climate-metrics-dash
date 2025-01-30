@@ -1,0 +1,7 @@
+services:
+  python-climate-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:8050"

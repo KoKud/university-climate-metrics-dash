@@ -44,7 +44,4 @@ venv.bak/
 .ipynb_checkpoints
 
 # Data files (if any)
-*.csv
-*.xls
-*.xlsx
 !requirements.txt

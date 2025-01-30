@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  python-climate-dashboard:
+    image: ghcr.io/kokud/university-climate-metrics-dash/python-climate-dashboard:latest
+    networks:
+      - shared-network
+    deploy:
+      mode: replicated
+      replicas: 1
+    labels:
+      - deploy-timestamp=${DEPLOY_TIMESTAMP}
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://test-node-0:3100/loki/api/v1/push"
+        loki-retries: "5"
+        loki-batch-size: "400"
+
+networks:
+  shared-network:
+    external: true
