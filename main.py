@@ -11,6 +11,7 @@ app = Dash(
     external_scripts=external_scripts,
     use_pages=True
 )
+server = app.server
 
 app.layout = html.Div([
     # Navigation
@@ -19,7 +20,7 @@ app.layout = html.Div([
             html.Div([
                 html.Div([
                     # Static title
-                    html.Div("Projekt Wizualizacja Danych", className="lg:text-3xl text-2xl mr-20"),
+                    html.Div("Projekt Wizualizacja Danych", className="lg:text-3xl text-2xl mr-20 md:mx-0 mx-auto"),
                     # Links in separate div
                     html.Div([
                         dcc.Link(
@@ -28,8 +29,8 @@ app.layout = html.Div([
                             className="hover:text-blue-800 px-4"
                         ) for page in dash.page_registry.values()
                         if page["module"] != "pages.not_found_404"
-                    ], className="hidden md:flex md:flex-1 items-center text-gray-600 uppercase justify-between lg:justify-end lg:space-x-20")
-                ], className="flex justify-between")
+                    ], className="flex md:flex-row md:my-0 my-4 flex-col items-center text-gray-600 uppercase justify-between lg:justify-end lg:space-x-20")
+                ], className="flex md:flex-row flex-col justify-between")
             ])
         ], className="container mx-auto p-6")
     ]),
@@ -69,11 +70,6 @@ app.layout = html.Div([
         ], className="container max-w-7xl p-10 mx-auto flex flex-col md:flex-row justify-between")
     ], className="bg-gray-900 text-white")
 ])
-
-test = pd.DataFrame({
-    'a': [1, 2, 3],
-    'b': [4, 5, 6]
-})
 
 if __name__ == "__main__":
     app.run_server(debug=True)
