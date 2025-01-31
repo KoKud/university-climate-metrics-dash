@@ -1,7 +1,6 @@
 import dash
 from dash import html, dcc, callback, Input, Output
 import plotly.graph_objs as go
-
 from data.data import get_dataset
 
 dash.register_page(__name__, path='/greenhouse-gases', name='Gazy cieplarniane')
@@ -29,7 +28,7 @@ def update_graph(selected_country, year_range):
 
 @callback(
     Output('graph-greenhouse-2', 'figure'),
-    [Input('year-dropdown', 'value')]
+    [Input('year2-dropdown', 'value')]
 )
 def update_graph2(selected_year):
     df = get_dataset()
@@ -51,9 +50,7 @@ def update_graph2(selected_year):
 def update_graph3(selected_year, sort_by):
     df = get_dataset()
     latest_data = df[df['year'] == selected_year]
-    top_countries = latest_data[~latest_data['country'].isin([
-        'World', 'Asia', 'Europe', 'Africa', 'North America', 'South America', 'Oceania', 'Non-OECD (GCP)', 'High-income countries'
-        ])].sort_values(sort_by, ascending=False).head(20)
+    top_countries = latest_data[latest_data['iso_code'].notna()].sort_values(sort_by, ascending=False).head(20)
     
     return {
         'data': [{
@@ -101,7 +98,7 @@ layout = html.Div([
         html.Div([
             html.Label("Wybierz rok:"),
             dcc.Dropdown(
-                id='year-dropdown',
+                id='year2-dropdown',
                 options=[{'label': c, 'value': c} for c in sorted(get_dataset()['year'].unique())],
                 value=2023
             ),
@@ -112,7 +109,7 @@ layout = html.Div([
     ],className="p-5 m-2 mt-8 bg-white rounded-3xl shadow-lg"),
     # Top Emitting Countries
     html.Div([
-        html.H1("🌍 Top państw pod względem emisji CO2", className="text-3xl"),
+        html.H1("🌍 Top państw pod względem emisji gazów cieplarnianych", className="text-3xl"),
         html.Div([
             html.Div([
                 html.Label("Wybierz rok:"),

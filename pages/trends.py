@@ -69,9 +69,7 @@ def update_graph2(country):
 def update_graph3(selected_year):
     df = get_dataset()
     latest_data = df[df['year'] == selected_year]
-    top_countries = latest_data[~latest_data['country'].isin([
-        'World', 'Asia', 'Europe', 'Africa', 'North America', 'South America', 'Oceania', 'Non-OECD (GCP)', 'High-income countries'
-        ])].sort_values('co2', ascending=False).head(20)
+    top_countries = latest_data[latest_data['iso_code'].notna()].sort_values('co2', ascending=False).head(20)
     
     return {
         'data': [{
